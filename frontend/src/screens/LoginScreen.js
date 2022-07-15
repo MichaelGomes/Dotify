@@ -1,12 +1,20 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { loginAction } from "../actions/userActions";
 
 const LoginScreen = () => {
-  //State
+  const dispatch = useDispatch();
+
+  //Local State
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [remember, setRemember] = useState(true);
   const [forgot, setForgot] = useState(false);
+
+  //Global State
+  const userLogin = useSelector((state) => state.userLogin);
+  const { loading, error, userInfo } = userLogin;
 
   //Functions
   const checkClick = (e) => {
@@ -17,8 +25,15 @@ const LoginScreen = () => {
     }
   };
 
+  const submitHandler = (e) => {
+    e.preventDefault();
+    dispatch(loginAction(email, password, remember));
+  };
+
   return (
     <div className="login-screen">
+      {loading && <h1>Loading...</h1>}
+      {error && <h1>{error}</h1>}
       <div className="login-box">
         <div className="login-brand">
           <img
@@ -51,7 +66,7 @@ const LoginScreen = () => {
           </form>
         ) : (
           <>
-            <form>
+            <form onSubmit={submitHandler}>
               <p>
                 <b>Email Address</b>
               </p>
