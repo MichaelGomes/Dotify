@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="65" height="65" viewBox="0 0 65 65">
+  <g id="Group_1" data-name="Group 1" transform="translate(-24 -33)">
+    <g id="Component_6_1" data-name="Component 6 – 1" transform="translate(24 33)">
+      <g id="Ellipse_1" data-name="Ellipse 1" fill="#fff" stroke="#4a0152" stroke-width="2">
+        <circle cx="32.5" cy="32.5" r="32.5" stroke="none"/>
+        <circle cx="32.5" cy="32.5" r="31.5" fill="none"/>
+      </g>
+      <g id="Logo_Icon" data-name="Logo Icon" transform="translate(12.313 17.888)">
+        <path id="Path_1" data-name="Path 1" d="M-299.648,1296.5s20.3-23.1,40.374,1.634" transform="translate(299.648 -1286.7)" fill="none" stroke="#000" stroke-width="5"/>
+        <path id="Path_2" data-name="Path 2" d="M-299.648,1294.433s16.021-18.231,31.858,1.289" transform="translate(303.905 -1275.265)" fill="none" stroke="#000" stroke-width="5"/>
+        <path id="Path_3" data-name="Path 3" d="M-299.648,1291.662s10.28-11.7,20.441.827" transform="translate(309.435 -1263.265)" fill="none" stroke="#000" stroke-width="5"/>
+      </g>
+    </g>
+  </g>
+</svg>

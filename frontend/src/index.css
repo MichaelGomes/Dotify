@@ -1,0 +1,108 @@
+:root {
+  --primary: #4a0152;
+  --secondary: #880497;
+}
+
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  background-color: black;
+  overflow-x: hidden;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.inline {
+  display: inline-block;
+}
+
+.white {
+  color: white;
+}
+
+/* ----------Login Screen---------- */
+.login-screen {
+  height: 130vh;
+  width: 100%;
+  position: absolute;
+  z-index: 4;
+  background-color: white;
+}
+
+.login-screen hr {
+  width: 100%;
+  margin: 50px auto;
+}
+
+.login-box {
+  max-width: 500px;
+  margin: 50px auto;
+  padding: 10px;
+}
+
+.input-field {
+  width: 95%;
+  height: 25px;
+  font-size: 15px;
+  font-family: inherit;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid grey;
+  margin-bottom: 15px;
+}
+
+.login-brand {
+  color: black;
+  text-align: center;
+}
+
+.lg-logo {
+  width: 60px;
+}
+
+.lg-brand-text {
+  display: inline;
+  padding-left: 5px;
+  position: relative;
+  bottom: 20px;
+  font-size: 30px;
+}
+
+.login-btn {
+  margin-top: 10px;
+  margin-left: 130px;
+  background-color: var(--secondary);
+  color: white;
+  padding: 10px 20px;
+  border: 1px solid var(--secondary);
+  border-radius: 30px;
+  font-size: 20px;
+  font-family: inherit;
+}
+
+.login-btn:hover {
+  background-color: var(--primary);
+}
+
+.sign-up-btn {
+  background-color: white;
+  color: var(--primary);
+  padding: 10px 20px;
+  margin-left: 60px;
+  border: 1px solid var(--primary);
+  border-radius: 30px;
+  font-size: 20px;
+  font-family: inherit;
+}
+
+.sign-up-btn:hover {
+  background-color: var(--secondary);
+  color: white;
+}
+
+.login-screen h3 {
+  text-align: center;
+  margin-bottom: 70px;
+}
