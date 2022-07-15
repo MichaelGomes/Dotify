@@ -22,6 +22,52 @@ body {
   color: white;
 }
 
+/* ----------Loader & Alert ----------*/
+
+.loader {
+  border: 8px solid #f3f3f3; /* Light grey */
+  border-top: 8px solid var(--secondary); /* Blue */
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  animation: spin 1s linear infinite;
+  margin: 20px auto;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.alert {
+  padding: 20px;
+  background-color: #f44336;
+  color: white;
+  width: fit-content;
+  min-width: 300px;
+  font-size: 20px;
+  margin: 5px auto;
+  text-align: center;
+}
+
+.closebtn {
+  margin-left: 15px;
+  color: rgba(255, 255, 255, 0.667);
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+}
+
+.closebtn:hover {
+  color: white;
+}
+
 /* ----------Login Screen---------- */
 .login-screen {
   height: 130vh;

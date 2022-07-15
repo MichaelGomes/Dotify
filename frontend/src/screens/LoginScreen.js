@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { loginAction } from "../actions/userActions";
+import Loader from "../components/Loader";
+import Alert from "../components/Alert";
 
 const LoginScreen = () => {
   const dispatch = useDispatch();
@@ -32,8 +34,8 @@ const LoginScreen = () => {
 
   return (
     <div className="login-screen">
-      {loading && <h1>Loading...</h1>}
-      {error && <h1>{error}</h1>}
+      {loading && <Loader />}
+      {error && <Alert>{error}</Alert>}
       <div className="login-box">
         <div className="login-brand">
           <img
