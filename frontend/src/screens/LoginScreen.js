@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { loginAction } from "../actions/userActions";
 import Loader from "../components/Loader";
 import Alert from "../components/Alert";
 
 const LoginScreen = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   //Local State
   const [email, setEmail] = useState("");
@@ -17,6 +18,13 @@ const LoginScreen = () => {
   //Global State
   const userLogin = useSelector((state) => state.userLogin);
   const { loading, error, userInfo } = userLogin;
+
+  //useEffect
+  useEffect(() => {
+    if (userInfo?.verified === true) {
+      navigate("/");
+    }
+  }, [navigate, userInfo]);
 
   //Functions
   const checkClick = (e) => {
