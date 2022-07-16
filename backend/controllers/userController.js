@@ -1,6 +1,9 @@
 import User from "../models/userModel.js";
 import asyncHandler from "express-async-handler";
+import jwt from "jsonwebtoken";
 import generateToken from "../utils/generateToken.js";
+import generateEmailToken from "../utils/generateEmailToken.js";
+import sendVerifyEmail from "../utils/sendVerifyEmail.js";
 
 // @desc   Auth user & get token
 // @route  POST /api/users/login
@@ -112,4 +115,43 @@ const updateUserProfile = asyncHandler(async (req, res) => {
   }
 });
 
-export { authUser, registerUser, getUserProfile, updateUserProfile };
+// @desc   Send verification email
+// @route  POST /api/users/verify
+// @access Private
+const verifyUserEmailSend = asyncHandler(async (req, res) => {
+  const { email, id } = req.body;
+
+  const emailToken = generateEmailToken(id);
+
+  sendVerifyEmail(emailToken, email);
+
+  res.json("Verification email has been sent to " + email);
+});
+
+// @desc   Verify Email
+// @route  GET /api/users/verify/:token
+// @access Private
+const verifyAccount = asyncHandler(async (req, res) => {
+  try {
+    //Verify Token
+    const id = jwt.verify(req.params.token, process.env.EMAIL_SECRET);
+    //Find User
+    const user = await User.findById(id.id);
+    //Verify User
+    user.verified = true;
+    await user.save();
+
+    res.json(user.email + " has been verified!");
+  } catch (error) {
+    throw new Error(error);
+  }
+});
+
+export {
+  authUser,
+  registerUser,
+  getUserProfile,
+  updateUserProfile,
+  verifyUserEmailSend,
+  verifyAccount,
+};

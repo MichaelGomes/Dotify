@@ -173,6 +173,43 @@ body {
   padding-left: 10px;
 }
 
+/* ----------Verify & Email Screen---------- */
+
+.verify-screen,
+.email-screen {
+  position: absolute;
+  width: 100%;
+  background-color: white;
+  height: 100vh;
+  padding-top: 20px;
+  z-index: 10;
+}
+
+.verify-box,
+.email-box {
+  max-width: 500px;
+  margin: 10px auto;
+  padding: 10px;
+  text-align: center;
+}
+
+.send-email-btn,
+.verify-btn {
+  margin: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-family: inherit;
+  background-color: var(--primary);
+  color: white;
+  border-radius: 30px;
+  border: none;
+}
+
+.send-email-btn:hover,
+.verify-btn:hover {
+  background-color: var(--secondary);
+}
+
 /* ----------Main Content---------- */
 .main-content {
   background-image: linear-gradient(var(--primary), black);

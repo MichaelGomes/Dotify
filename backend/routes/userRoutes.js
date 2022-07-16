@@ -6,6 +6,8 @@ import {
   registerUser,
   getUserProfile,
   updateUserProfile,
+  verifyUserEmailSend,
+  verifyAccount,
 } from "../controllers/userController.js";
 
 //Route /api/users
@@ -15,5 +17,7 @@ router
   .route("/profile")
   .get(protect, getUserProfile)
   .put(protect, updateUserProfile);
+router.post("/verify", protect, verifyUserEmailSend);
+router.get("/verify/:token", protect, verifyAccount);
 
 export default router;

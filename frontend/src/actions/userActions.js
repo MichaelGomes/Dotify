@@ -13,6 +13,12 @@ import {
   USER_UPDATE_DETAILS_FAIL,
   USER_UPDATE_DETAILS_REQUEST,
   USER_UPDATE_DETAILS_SUCCESS,
+  USER_EMAIL_FAIL,
+  USER_EMAIL_REQUEST,
+  USER_EMAIL_SUCCESS,
+  USER_VERIFY_FAIL,
+  USER_VERIFY_REQUEST,
+  USER_VERIFY_SUCCESS,
 } from "../constants/userConstants";
 
 export const loginAction = (email, password, remember) => async (dispatch) => {
@@ -162,6 +168,74 @@ export const updateUserDetails = (user) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: USER_UPDATE_DETAILS_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const sendEmailAction = (email, id) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: USER_EMAIL_REQUEST });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.post(
+      "/api/users/verify",
+      { email, id },
+      config
+    );
+
+    dispatch({
+      type: USER_EMAIL_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: USER_EMAIL_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const emailVerifyAction = (emailToken) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: USER_VERIFY_REQUEST });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.get(`/api/users/verify/${emailToken}`, config);
+
+    dispatch({
+      type: USER_VERIFY_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: USER_VERIFY_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
