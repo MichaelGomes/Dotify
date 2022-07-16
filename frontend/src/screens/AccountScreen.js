@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserDetails } from "../actions/userActions";
+import { getUserDetails, updateUserDetails } from "../actions/userActions";
+import { USER_UPDATE_DETAILS_RESET } from "../constants/userConstants";
 import Alert from "../components/Alert";
 import Loader from "../components/Loader";
 
@@ -23,6 +24,13 @@ const AccountScreen = () => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
+  const userUpdateDetails = useSelector((state) => state.userUpdateDetails);
+  const {
+    loading: updateLoading,
+    error: updateError,
+    success,
+  } = userUpdateDetails;
+
   //useEffect
   useEffect(() => {
     if (!userInfo) {
@@ -30,14 +38,15 @@ const AccountScreen = () => {
     } else if (userInfo.verified === false) {
       navigate("/verify");
     } else {
-      if (!user?.name) {
+      if (!user?.name || success) {
+        dispatch({ type: USER_UPDATE_DETAILS_RESET });
         dispatch(getUserDetails("profile"));
       } else {
         setName(user?.name);
         setEmail(user?.email);
       }
     }
-  }, [dispatch, navigate, userInfo, user]);
+  }, [dispatch, navigate, userInfo, user, success]);
 
   //Functions
   const alertClose = () => {
@@ -48,6 +57,8 @@ const AccountScreen = () => {
     e.preventDefault();
     if (password !== confirmPassword) {
       setMessage("Passwords do not match");
+    } else {
+      dispatch(updateUserDetails({ _id: user._id, name, email, password }));
     }
   };
 
@@ -56,7 +67,9 @@ const AccountScreen = () => {
       <div className="account-screen">
         {message && <Alert closeFunction={alertClose}>{message}</Alert>}
         {loading && <Loader />}
+        {updateLoading && <Loader />}
         {error && <Alert>{error}</Alert>}
+        {updateError && <Alert>{error}</Alert>}
         <Link to="/">
           <button className="back-btn pointer">BACK</button>
         </Link>
