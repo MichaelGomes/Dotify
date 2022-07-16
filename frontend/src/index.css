@@ -234,3 +234,63 @@ body {
   color: white;
   background-color: #393939;
 }
+
+/* ----------Account Screen---------- */
+
+.account-screen {
+  position: absolute;
+  z-index: 4;
+  width: 100%;
+  background-color: white;
+  height: 140vh;
+}
+
+.account-box {
+  max-width: 500px;
+  margin: 10px auto;
+  padding: 10px;
+}
+
+.account-brand {
+  color: black;
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.lg-brand-text-account {
+  display: inline;
+  padding-left: 5px;
+  position: relative;
+  bottom: 20px;
+  font-size: 30px;
+}
+
+.back-btn {
+  margin: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-family: inherit;
+  background-color: var(--primary);
+  color: white;
+  border-radius: 30px;
+  border: none;
+}
+
+.back-btn:hover {
+  background-color: var(--secondary);
+}
+
+.account-submit {
+  background-color: var(--secondary);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 30px;
+  font-size: 20px;
+  font-family: inherit;
+  margin-top: 15px;
+}
+
+.account-submit:hover {
+  background-color: var(--primary);
+}
