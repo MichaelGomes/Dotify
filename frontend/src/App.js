@@ -5,6 +5,7 @@ import RegisterScreen from "./screens/RegisterScreen";
 import VerifyScreen from "./screens/VerifyScreen";
 import VerifyEmailScreen from "./screens/VerifyEmailScreen";
 import AccountScreen from "./screens/AccountScreen";
+import ResetScreen from "./screens/ResetScreen";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Routes>
         <Route path="/login" element={<LoginScreen />} />
         <Route path="/register" element={<RegisterScreen />} />
+        <Route path="/reset/:token" element={<ResetScreen />} />
         <Route path="/verify" element={<VerifyScreen />} />
         <Route path="/verify/:emailtoken" element={<VerifyEmailScreen />} />
         <Route path="/" element={<HomeScreen />} />

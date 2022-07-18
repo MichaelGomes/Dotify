@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { loginAction } from "../actions/userActions";
+import { loginAction, sendResetEmailAction } from "../actions/userActions";
 import Loader from "../components/Loader";
 import Alert from "../components/Alert";
 
@@ -18,6 +18,13 @@ const LoginScreen = () => {
   //Global State
   const userLogin = useSelector((state) => state.userLogin);
   const { loading, error, userInfo } = userLogin;
+
+  const userResetEmail = useSelector((state) => state.userResetEmail);
+  const {
+    loading: emailLoading,
+    error: emailError,
+    success: emailSuccess,
+  } = userResetEmail;
 
   //useEffect
   useEffect(() => {
@@ -40,10 +47,24 @@ const LoginScreen = () => {
     dispatch(loginAction(email, password, remember));
   };
 
+  const sendForgotPasswordEmail = (e) => {
+    e.preventDefault();
+    dispatch(sendResetEmailAction(email));
+  };
+
   return (
     <div className="login-screen">
       {loading && <Loader />}
-      {error && <Alert>{error}</Alert>}
+      {error ? (
+        <Alert>{error}</Alert>
+      ) : emailError ? (
+        <Alert>{emailError}</Alert>
+      ) : null}
+      {emailSuccess && (
+        <Alert>
+          Email has been sent. Don't forget to check your junk folder
+        </Alert>
+      )}
       <div className="login-box">
         <div className="login-brand">
           <img
@@ -57,7 +78,8 @@ const LoginScreen = () => {
 
         {/* If Forgot Password Is True */}
         {forgot ? (
-          <form>
+          <form onSubmit={sendForgotPasswordEmail}>
+            {emailLoading && <Loader />}
             <p>
               <b>Email Address</b>
             </p>

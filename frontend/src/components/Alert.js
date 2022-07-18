@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 
-const Alert = ({ closeFunction, children }) => {
+const Alert = ({ closeFunction, green, children }) => {
   const [scrolled, setScrolled] = useState(false);
 
   const scroll = () => {
+    //Scroll to Alert
     window.scrollTo(0, 0);
     setScrolled(true);
   };

@@ -8,6 +8,8 @@ import {
   updateUserProfile,
   verifyUserEmailSend,
   verifyAccount,
+  resetEmailSend,
+  resetUserPassword,
 } from "../controllers/userController.js";
 
 //Route /api/users
@@ -19,5 +21,7 @@ router
   .put(protect, updateUserProfile);
 router.post("/verify", protect, verifyUserEmailSend);
 router.get("/verify/:token", protect, verifyAccount);
+router.post("/reset/", resetEmailSend);
+router.post("/reset/:token", resetUserPassword);
 
 export default router;

@@ -4,6 +4,8 @@ import jwt from "jsonwebtoken";
 import generateToken from "../utils/generateToken.js";
 import generateEmailToken from "../utils/generateEmailToken.js";
 import sendVerifyEmail from "../utils/sendVerifyEmail.js";
+import generateResetToken from "../utils/generateResetToken.js";
+import sendResetEmail from "../utils/sendResetEmail.js";
 
 // @desc   Auth user & get token
 // @route  POST /api/users/login
@@ -147,6 +149,49 @@ const verifyAccount = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc   Send Password Reset Email
+// @route  POST /api/users/reset/
+// @access Public
+const resetEmailSend = asyncHandler(async (req, res) => {
+  const { email } = req.body;
+  const user = await User.findOne({ email: email });
+
+  if (!email) {
+    res.status(400);
+    throw new Error("Email Address Does Not Exist" + email);
+  }
+
+  if (!user) {
+    throw new Error(email + " is Not Associated With an Account");
+  }
+
+  const token = generateResetToken(user._id);
+
+  sendResetEmail(token, email);
+
+  res.json("Reset password email has been sent to " + email);
+});
+
+// @desc   Reset password
+// @route  POST /api/users/reset/:token
+// @access Public
+const resetUserPassword = asyncHandler(async (req, res) => {
+  try {
+    //Verify Token
+    const id = jwt.verify(req.params.token, process.env.RESET_SECRET);
+    //Find User
+    const user = await User.findById(id.id);
+
+    user.password = req.body.password;
+
+    user.save();
+
+    res.json(user.name + "'s Password has been changed");
+  } catch (error) {
+    throw new Error(error);
+  }
+});
+
 export {
   authUser,
   registerUser,
@@ -154,4 +199,6 @@ export {
   updateUserProfile,
   verifyUserEmailSend,
   verifyAccount,
+  resetEmailSend,
+  resetUserPassword,
 };
