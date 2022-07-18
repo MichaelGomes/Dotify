@@ -6,6 +6,8 @@ import VerifyScreen from "./screens/VerifyScreen";
 import VerifyEmailScreen from "./screens/VerifyEmailScreen";
 import AccountScreen from "./screens/AccountScreen";
 import ResetScreen from "./screens/ResetScreen";
+import MusicControls from "./components/MusicControls";
+import Sidebar from "./components/Sidebar";
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
         <Route path="/account" element={<AccountScreen />} />
         <Route path="*" element={<HomeScreen />} />
       </Routes>
+      <Sidebar />
+      <MusicControls />
     </Router>
   );
 }

@@ -22,6 +22,18 @@ body {
   color: white;
 }
 
+.white-h:hover {
+  color: white;
+}
+
+.grey {
+  color: rgb(169, 169, 169);
+}
+
+.purple {
+  color: var(--secondary);
+}
+
 /* ----------Loader & Alert ----------*/
 
 .loader {
@@ -273,6 +285,216 @@ body {
 .profile-btn-content p:hover {
   color: white;
   background-color: #393939;
+}
+
+/* ----------Bottom Bar---------- */
+
+.bottom-bar {
+  background-color: #1e1e1e;
+  position: fixed;
+  bottom: 0;
+  z-index: 3;
+  width: 100%;
+  height: 90px;
+  border-top: 1px solid #3d3d3d;
+  color: white;
+  display: flex;
+}
+
+.current-song {
+  color: white;
+  display: flex;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.btm-img-sm {
+  width: 64px;
+  height: 64px;
+  padding: 10px;
+}
+
+.btm-img-bg {
+  width: 256px;
+  height: 256px;
+}
+
+.img-bg-container {
+  display: none;
+  position: absolute;
+  background-color: #1e1e1e;
+  bottom: 100px;
+}
+
+.btm-images:hover .img-bg-container {
+  display: block;
+}
+
+.current-song h5 {
+  margin-top: 20px;
+  margin-bottom: 0px;
+}
+
+.current-song h6 {
+  margin-top: 0px;
+  color: rgb(169, 169, 169);
+}
+
+.music-controls {
+  padding-top: 20px;
+  background-color: inherit;
+  min-height: 100%;
+  min-width: 40%;
+  position: absolute;
+  z-index: 2;
+  left: 25%;
+  overflow: clip;
+}
+
+.progress-container {
+  background-color: grey;
+  border-radius: 5px;
+  margin-top: 10px;
+  margin-left: 100px;
+  height: 4px;
+  width: 80%;
+}
+
+.progress-bar {
+  background-color: white;
+  border-radius: 5px;
+  height: 100%;
+  width: 0%;
+  transition: 0.1s ease;
+}
+
+.sound-controls {
+  position: absolute;
+  right: 10px;
+  width: 30%;
+  padding-top: 30px;
+}
+
+.sound-container {
+  background-color: grey;
+  border-radius: 5px;
+  height: 4px;
+  width: 375px;
+  margin-left: 10px;
+}
+
+.sound-control {
+  background-color: white;
+  border-radius: 5px;
+  height: 100%;
+}
+
+.btm-icon {
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+.btm-icon:hover {
+  color: white;
+}
+
+.bottom-heart {
+  padding-top: 10px;
+  margin-left: 20px;
+  margin-right: 200px;
+}
+
+.fa-shuffle {
+  font-size: 20px;
+  margin-left: 235px;
+}
+
+.fa-backward-step {
+  font-size: 20px;
+  margin-left: 250px;
+}
+
+.fa-circle-play,
+.fa-circle-pause {
+  font-size: 30px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.fa-forward-step {
+  font-size: 20px;
+}
+
+.fa-repeat {
+  font-size: 20px;
+}
+
+.repeat-badge {
+  font-weight: bold;
+  font-size: 20px;
+  padding: 5px 13px;
+  font-family: inherit;
+  margin-left: -20px;
+}
+
+/* ----------Sidebar---------- */
+.sidebar {
+  background-color: black;
+  width: 240px;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.brand {
+  padding-left: 10px;
+  padding-top: 10px;
+}
+
+.logo {
+  width: 40px;
+  margin-left: 15px;
+  margin-top: 10px;
+}
+
+.brand-text {
+  color: white;
+  display: inline;
+  padding-left: 5px;
+  position: relative;
+  bottom: 10px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.sidebar ul p {
+  margin: 8px 0;
+}
+
+.sidebar li {
+  width: 100%;
+}
+
+.fa-house,
+.fa-magnifying-glass,
+.fa-book,
+.fa-circle-plus,
+.left-heart {
+  padding-right: 10px;
+  padding-left: 30px;
+}
+
+.sidebar hr {
+  width: 80%;
+}
+
+.playlists {
+  margin-left: 30px;
+  font-size: 14px;
 }
 
 /* ----------Account Screen---------- */
