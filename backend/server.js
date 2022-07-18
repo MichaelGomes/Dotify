@@ -3,6 +3,8 @@ import dotenv from "dotenv";
 import connectDB from "./config/db.js";
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 import userRoutes from "./routes/userRoutes.js";
+import playlistRoutes from "./routes/playlistRoutes.js";
+import fileRoutes from "./routes/fileRoutes.js";
 
 // Setup Dotenv, Express & JSON Parsing
 dotenv.config();
@@ -14,6 +16,8 @@ connectDB();
 
 //Routes
 app.use("/api/users", userRoutes);
+app.use("/api/playlist", playlistRoutes);
+app.use("/api/files", fileRoutes);
 
 //Error Handling
 app.use(notFound);
