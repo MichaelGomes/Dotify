@@ -18,6 +18,10 @@ body {
   display: inline-block;
 }
 
+.hidden {
+  display: none;
+}
+
 .white {
   color: white;
 }
@@ -529,6 +533,115 @@ body {
 .playlists {
   margin-left: 30px;
   font-size: 14px;
+}
+
+/* ----------Playlist Screen---------- */
+
+.playlist-screen {
+  position: absolute;
+  z-index: 1;
+  margin-left: 240px;
+  width: 80%;
+  padding-bottom: 140px;
+}
+
+.playlist-screen-img {
+  width: 230px;
+  height: 230px;
+  padding-top: 80px;
+  padding-left: 20px;
+}
+
+.playlist-header-text {
+  padding-left: 20px;
+}
+
+.playlist-header-text h1,
+h2,
+h3 {
+  margin: 0px;
+}
+
+.playlist-screen h1 {
+  font-size: 60px;
+}
+
+.song-container {
+  width: 100vw;
+  background-color: #1e1e1e;
+}
+
+.song-container .fa-circle-play {
+  color: var(--secondary);
+  font-size: 60px;
+  padding: 20px;
+}
+
+.options {
+  font-size: 30px;
+  padding-right: 30px;
+}
+
+.playlist-screen .table {
+  width: 90%;
+  margin-left: 30px;
+  text-align: left;
+  padding-bottom: 50px;
+  min-height: 200px;
+}
+
+.row {
+  width: 80%;
+  padding-left: 15px;
+}
+
+.playlist-screen .number {
+  padding-right: 10px;
+  width: 10px;
+}
+
+.playlist-screen .title {
+  width: 40%;
+}
+
+.playlist-screen .album {
+  width: 40%;
+}
+
+.song-table-row:hover {
+  background-color: #393939;
+  border-radius: 5px;
+}
+
+.song-table-row:hover .fa-ellipsis {
+  padding-left: 20px;
+  color: white;
+  display: inline-block;
+}
+
+.playlist-screen-img-sm {
+  padding-top: 10px;
+  width: 40px;
+  height: 40px;
+}
+
+.song-info {
+  height: 40px;
+  margin: 0 0 0 10px;
+}
+
+.song-info h5,
+p {
+  margin: 0;
+  padding: 0;
+}
+
+.song-info p {
+  font-size: 11px;
+}
+
+.song-row:hover {
+  background-color: rgb(125, 125, 125);
 }
 
 /* ----------Account Screen---------- */

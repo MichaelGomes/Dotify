@@ -6,6 +6,7 @@ import VerifyScreen from "./screens/VerifyScreen";
 import VerifyEmailScreen from "./screens/VerifyEmailScreen";
 import AccountScreen from "./screens/AccountScreen";
 import ResetScreen from "./screens/ResetScreen";
+import PlaylistScreen from "./screens/PlaylistScreen";
 import MusicControls from "./components/MusicControls";
 import Sidebar from "./components/Sidebar";
 
@@ -18,8 +19,9 @@ function App() {
         <Route path="/reset/:token" element={<ResetScreen />} />
         <Route path="/verify" element={<VerifyScreen />} />
         <Route path="/verify/:emailtoken" element={<VerifyEmailScreen />} />
-        <Route path="/" element={<HomeScreen />} />
         <Route path="/account" element={<AccountScreen />} />
+        <Route path="/" element={<HomeScreen />} />
+        <Route path="/playlist/:id" element={<PlaylistScreen />} />
         <Route path="*" element={<HomeScreen />} />
       </Routes>
       <Sidebar />

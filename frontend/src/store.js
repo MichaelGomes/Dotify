@@ -11,7 +11,10 @@ import {
   userResetEmailReducer,
   userResetPasswordReducer,
 } from "./reducers/userReducers";
-import { playlistsGetReducer } from "./reducers/playlistReducers";
+import {
+  playlistsGetReducer,
+  playlistGetReducer,
+} from "./reducers/playlistReducers";
 
 const reducer = combineReducers({
   userLogin: userLoginReducer,
@@ -23,6 +26,7 @@ const reducer = combineReducers({
   userResetEmail: userResetEmailReducer,
   userResetPassword: userResetPasswordReducer,
   playlistsGet: playlistsGetReducer,
+  playlistGet: playlistGetReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")
