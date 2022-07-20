@@ -578,6 +578,10 @@ h3 {
   padding: 20px;
 }
 
+.song-container .fa-circle-play:hover {
+  color: #a205b4;
+}
+
 .options {
   font-size: 30px;
   padding-right: 30px;

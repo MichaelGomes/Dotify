@@ -15,6 +15,9 @@ import {
   PLAYLIST_EDIT_FAIL,
   PLAYLIST_EDIT_REQUEST,
   PLAYLIST_EDIT_SUCCESS,
+  PLAYLIST_CURRENT_FAIL,
+  PLAYLIST_CURRENT_REQUEST,
+  PLAYLIST_CURRENT_SUCCESS,
 } from "../constants/playlistConstants";
 
 export const playlistsAction = () => async (dispatch, getState) => {
@@ -177,3 +180,32 @@ export const playlistEditAction =
       });
     }
   };
+
+export const playlistCurrentAction = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: PLAYLIST_CURRENT_REQUEST });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.get(`/api/playlist/${id}`, config);
+
+    dispatch({ type: PLAYLIST_CURRENT_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: PLAYLIST_CURRENT_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};

@@ -13,6 +13,9 @@ import {
   SONG_FAIL,
   SONG_REQUEST,
   SONG_SUCCESS,
+  SONG_CURRENT_FAIL,
+  SONG_CURRENT_REQUEST,
+  SONG_CURRENT_SUCCESS,
 } from "../constants/songConstants";
 
 export const songRemoveReducer = (state = {}, action) => {
@@ -65,6 +68,22 @@ export const songGetReducer = (state = { song: [] }, action) => {
     case SONG_SUCCESS:
       return { loading: false, song: action.payload };
     case SONG_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const songCurrentIndexReducer = (
+  state = { currentSongIndex: [] },
+  action
+) => {
+  switch (action.type) {
+    case SONG_CURRENT_REQUEST:
+      return { loading: true, currentSongIndex: [] };
+    case SONG_CURRENT_SUCCESS:
+      return { loading: false, currentSongIndex: action.payload };
+    case SONG_CURRENT_FAIL:
       return { loading: false, error: action.payload };
     default:
       return state;

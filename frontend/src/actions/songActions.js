@@ -12,6 +12,9 @@ import {
   SONG_FAIL,
   SONG_REQUEST,
   SONG_SUCCESS,
+  SONG_CURRENT_FAIL,
+  SONG_CURRENT_REQUEST,
+  SONG_CURRENT_SUCCESS,
 } from "../constants/songConstants";
 
 export const songRemoveAction = (id, songid) => async (dispatch, getState) => {
@@ -112,6 +115,22 @@ export const songGetAction = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: SONG_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const songCurrentIndexAction = (index) => async (dispatch) => {
+  try {
+    dispatch({ type: SONG_CURRENT_REQUEST });
+
+    dispatch({ type: SONG_CURRENT_SUCCESS, payload: index });
+  } catch (error) {
+    dispatch({
+      type: SONG_CURRENT_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

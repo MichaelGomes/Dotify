@@ -5,7 +5,9 @@ import {
   playlistAction,
   playlistDeleteAction,
   playlistEditAction,
+  playlistCurrentAction,
 } from "../actions/playlistActions";
+import { songCurrentIndexAction } from "../actions/songActions";
 import { imagesAction } from "../actions/imageActions";
 import { PLAYLIST_EDIT_RESET } from "../constants/playlistConstants";
 import { SONG_REMOVE_RESET, SONG_ADD_RESET } from "../constants/songConstants";
@@ -137,6 +139,12 @@ const PlaylistScreen = () => {
     document.getElementById("image-modal").classList.toggle("hidden");
   };
 
+  //Function for Selecting Playlist to Play
+  const playPlaylist = () => {
+    dispatch(songCurrentIndexAction(0));
+    dispatch(playlistCurrentAction(id));
+  };
+
   return (
     <>
       {lengthSwitch === 0 && getPlaylistLength()}
@@ -233,7 +241,10 @@ const PlaylistScreen = () => {
           </div>
 
           <div className="song-container">
-            <i class="fa-solid fa-circle-play pointer"></i>
+            <i
+              class="fa-solid fa-circle-play pointer"
+              onClick={playPlaylist}
+            ></i>
             <div className="option-dropdown inline">
               <i
                 id="playlist-settings"

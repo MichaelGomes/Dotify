@@ -17,6 +17,9 @@ import {
   PLAYLIST_EDIT_REQUEST,
   PLAYLIST_EDIT_RESET,
   PLAYLIST_EDIT_SUCCESS,
+  PLAYLIST_CURRENT_FAIL,
+  PLAYLIST_CURRENT_REQUEST,
+  PLAYLIST_CURRENT_SUCCESS,
 } from "../constants/playlistConstants";
 
 export const playlistsGetReducer = (state = { playlists: [] }, action) => {
@@ -85,6 +88,22 @@ export const playlistEditReducer = (state = {}, action) => {
       return { loading: false, error: action.payload };
     case PLAYLIST_EDIT_RESET:
       return { success: false };
+    default:
+      return state;
+  }
+};
+
+export const playlistCurrentReducer = (
+  state = { playlistCurrent: [] },
+  action
+) => {
+  switch (action.type) {
+    case PLAYLIST_CURRENT_REQUEST:
+      return { loading: true, currentPlaylist: [] };
+    case PLAYLIST_CURRENT_SUCCESS:
+      return { loading: false, currentPlaylist: action.payload };
+    case PLAYLIST_CURRENT_FAIL:
+      return { loading: false, error: action.payload };
     default:
       return state;
   }

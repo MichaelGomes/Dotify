@@ -1,9 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 
 const MusicControls = () => {
   //Local State
   const [repeat, setRepeat] = useState("off");
   const [mute, setMute] = useState(false);
+  const [songIndex, setSongIndex] = useState(0);
+  const [songPlay, setSongPlay] = useState(false);
+  const [currentSong, setCurrentSong] = useState("");
+  const [userPlaylist, setUserPlaylist] = useState("");
+
+  //Global State
+  const playlistCurrent = useSelector((state) => state.playlistCurrent);
+  const { currentPlaylist } = playlistCurrent;
+
+  const songCurrentIndex = useSelector((state) => state.songCurrentIndex);
+  const { currentSongIndex } = songCurrentIndex;
+
+  //useEffect
+  useEffect(() => {
+    if (currentPlaylist) {
+      getCurrentSong();
+    }
+  }, [currentPlaylist, currentSongIndex]);
 
   //Functions
   const repeatClick = () => {
@@ -77,22 +96,68 @@ const MusicControls = () => {
     }
   };
 
+  //Functions for Playing Song
+  const getCurrentSong = () => {
+    if (currentPlaylist) {
+      setSongPlay(false);
+      setSongIndex(currentSongIndex);
+      setUserPlaylist(currentPlaylist);
+      let songs = userPlaylist?.songs;
+      if (songs?.length !== undefined) {
+        let song = songs[Object.keys(songs)[songIndex]];
+        setCurrentSong(song);
+      }
+    }
+    play();
+  };
+
+  const play = () => {
+    //Play Song
+    let playAudio = document.getElementById("audio").play();
+
+    if (playAudio !== undefined) {
+      playAudio
+        .then((_) => {
+          setSongPlay(true);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  };
+
+  const pause = () => {
+    //Pause Song
+    document.getElementById("audio").pause();
+    setSongPlay(false);
+  };
+
   return (
     <>
       <div className="bottom-bar">
         <div className="current-song">
-          <>
-            <div className="btm-images">
-              <img className="btm-img-sm" alt="Album Artwork"></img>
-              <div className="img-bg-container">
-                <img className="btm-img-bg" alt="Album Artwork"></img>
+          {currentSong && (
+            <>
+              <div className="btm-images">
+                <img
+                  className="btm-img-sm"
+                  src={`/api/files/image/${currentSong?.image}`}
+                  alt="Album Artwork"
+                ></img>
+                <div className="img-bg-container">
+                  <img
+                    className="btm-img-bg"
+                    src={`/api/files/image/${currentSong?.image}`}
+                    alt="Album Artwork"
+                  ></img>
+                </div>
               </div>
-            </div>
-            <div>
-              <h5>Test Song Name</h5>
-              <h6>Test Song Artist</h6>
-            </div>
-          </>
+              <div>
+                <h5>{currentSong?.name}</h5>
+                <h6>{currentSong?.artists}</h6>
+              </div>
+            </>
+          )}
         </div>
 
         <div className="music-controls">
@@ -100,7 +165,19 @@ const MusicControls = () => {
             class="fa-solid fa-backward-step btm-icon grey prev pointer"
             id="prev"
           ></i>
-          <i class="fa-solid fa-circle-play pointer" id="play"></i>
+          {songPlay ? (
+            <i
+              class="fa-solid fa-circle-pause pointer"
+              id="pause"
+              onClick={pause}
+            ></i>
+          ) : (
+            <i
+              class="fa-solid fa-circle-play pointer"
+              id="play"
+              onClick={play}
+            ></i>
+          )}
           <i
             class="fa-solid fa-forward-step btm-icon grey next pointer"
             id="next"
@@ -134,10 +211,14 @@ const MusicControls = () => {
           <div id="progress-container" className="progress-container pointer">
             <div className="progress-bar" id="progress-bar"></div>
           </div>
-          <audio
-            id="audio"
-            src={`api/files/audio/26e108bf7e7504a2babb64c531702958.mp3`}
-          ></audio>
+          {currentSong?.length !== 0 ? (
+            <audio
+              id="audio"
+              src={`/api/files/audio/${currentSong?.music}`}
+            ></audio>
+          ) : (
+            <audio id="audio" src=""></audio>
+          )}
         </div>
 
         <div className="sound-controls">
