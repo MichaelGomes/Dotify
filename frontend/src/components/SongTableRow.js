@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { songRemoveAction, songAddAction } from "../actions/songActions";
+import {
+  songRemoveAction,
+  songAddAction,
+  songCurrentIndexAction,
+} from "../actions/songActions";
+import { playlistCurrentAction } from "../actions/playlistActions";
 
 const SongTableRow = ({ song, index }) => {
   const { id } = useParams();
@@ -51,6 +56,11 @@ const SongTableRow = ({ song, index }) => {
     setPlaylistPopupHidden(true);
   };
 
+  const playSong = () => {
+    dispatch(songCurrentIndexAction(index));
+    dispatch(playlistCurrentAction(id));
+  };
+
   return (
     <>
       <div
@@ -59,7 +69,11 @@ const SongTableRow = ({ song, index }) => {
         onMouseLeave={() => setHover(false)}
       >
         {hover ? (
-          <i id="play" class="fa-solid fa-play number white"></i>
+          <i
+            id="play"
+            class="fa-solid fa-play number white"
+            onClick={playSong}
+          ></i>
         ) : (
           <p id="number" className="number inline">
             {index + 1}
