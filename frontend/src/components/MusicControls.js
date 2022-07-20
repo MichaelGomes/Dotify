@@ -132,6 +132,148 @@ const MusicControls = () => {
     setSongPlay(false);
   };
 
+  const next = () => {
+    if (repeat === "off") {
+      //Song playing is the last song
+      if (songIndex === userPlaylist?.songs.length - 1) {
+        setUserPlaylist("");
+        setCurrentSong("");
+        setSongPlay(false);
+      } else {
+        setSongIndex(songIndex + 1);
+        loadNextSong();
+
+        // 1 second delay
+        setTimeout(function () {
+          play();
+        }, 1000);
+      }
+    }
+    if (repeat === "playlist") {
+      //Song playing is the last song
+      if (songIndex === userPlaylist.songs.length - 1) {
+        loadFirstSong();
+
+        // 1 second delay
+        setTimeout(function () {
+          play();
+        }, 1000);
+      } else {
+        setSongIndex(songIndex + 1);
+        loadNextSong();
+
+        // 1 second delay
+        setTimeout(function () {
+          play();
+        }, 1000);
+      }
+    }
+    if (repeat === "song") {
+      let audio = document.getElementById("audio");
+      audio.currentTime = 0;
+      play();
+    }
+  };
+
+  const prev = () => {
+    let audio = document.getElementById("audio");
+
+    //If Audio is more than 5 seconds
+    if (audio.currentTime > 5) {
+      //Restart Song
+      audio.currentTime = 0;
+      play();
+    } else {
+      if (repeat === "off") {
+        if (songIndex === 0) {
+          setUserPlaylist("");
+          setCurrentSong("");
+          setSongPlay(false);
+          audio.pause();
+        } else {
+          setSongIndex(songIndex - 1);
+
+          loadPrevSong();
+          // 1 second delay
+          setTimeout(function () {
+            play();
+          }, 1000);
+        }
+      }
+
+      if (repeat === "playlist") {
+        if (songIndex === 0) {
+          loadLastSong();
+          // 1 second delay
+          setTimeout(function () {
+            play();
+          }, 1000);
+        } else {
+          setSongIndex(songIndex - 1);
+
+          loadPrevSong();
+          // 1 second delay
+          setTimeout(function () {
+            play();
+          }, 1000);
+        }
+      }
+
+      if (repeat === "song") {
+        audio.currentTime = 0;
+        play();
+      }
+    }
+  };
+
+  //Functions for Loading the Song
+  const loadNextSong = () => {
+    // //Load next song
+    let songs = userPlaylist?.songs;
+    let song = songs[Object.keys(songs)[songIndex + 1]];
+
+    setCurrentSong(song);
+
+    let audio = document.getElementById("audio");
+    audio.currentTime = 0;
+  };
+
+  const loadFirstSong = () => {
+    // //Load first song
+    let songs = userPlaylist?.songs;
+    let song = songs[Object.keys(songs)[0]];
+
+    setCurrentSong(song);
+    setSongIndex(0);
+
+    let audio = document.getElementById("audio");
+    audio.currentTime = 0;
+  };
+
+  const loadPrevSong = () => {
+    // //Load prev song
+    let songs = userPlaylist?.songs;
+    let song = songs[Object.keys(songs)[songIndex - 1]];
+
+    setCurrentSong(song);
+
+    let audio = document.getElementById("audio");
+    audio.currentTime = 0;
+  };
+
+  const loadLastSong = () => {
+    // //Load last song
+    let songs = userPlaylist?.songs;
+    let song = songs[Object.keys(songs)[userPlaylist.songs.length - 1]];
+
+    setCurrentSong(song);
+    setSongIndex(userPlaylist.songs.length - 1);
+
+    let audio = document.getElementById("audio");
+    audio.currentTime = 0;
+  };
+
+  //Functions for Progress Bar
   const progressBarUpdate = () => {
     // Convert duration into Number
     let duration = currentSong?.duration;
@@ -227,6 +369,7 @@ const MusicControls = () => {
           <i
             class="fa-solid fa-backward-step btm-icon grey prev pointer"
             id="prev"
+            onClick={prev}
           ></i>
           {songPlay ? (
             <i
@@ -244,6 +387,7 @@ const MusicControls = () => {
           <i
             class="fa-solid fa-forward-step btm-icon grey next pointer"
             id="next"
+            onClick={next}
           ></i>
           {repeat === "off" && (
             <>
@@ -283,6 +427,7 @@ const MusicControls = () => {
               id="audio"
               src={`/api/files/audio/${currentSong?.music}`}
               onTimeUpdate={progressBarUpdate}
+              onEnded={next}
             ></audio>
           ) : (
             <audio id="audio" src=""></audio>
