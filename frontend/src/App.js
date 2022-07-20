@@ -8,6 +8,7 @@ import AccountScreen from "./screens/AccountScreen";
 import ResetScreen from "./screens/ResetScreen";
 import PlaylistScreen from "./screens/PlaylistScreen";
 import LibraryScreen from "./screens/LibraryScreen";
+import SearchScreen from "./screens/SearchScreen";
 import MusicControls from "./components/MusicControls";
 import Sidebar from "./components/Sidebar";
 
@@ -22,6 +23,7 @@ function App() {
         <Route path="/verify/:emailtoken" element={<VerifyEmailScreen />} />
         <Route path="/account" element={<AccountScreen />} />
         <Route path="/" element={<HomeScreen />} />
+        <Route path="/search" element={<SearchScreen />} />
         <Route path="/playlist/:id" element={<PlaylistScreen />} />
         <Route path="/library" element={<LibraryScreen />} />
         <Route path="*" element={<HomeScreen />} />
