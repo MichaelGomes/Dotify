@@ -6,6 +6,7 @@ import {
   playlistDeleteAction,
   playlistEditAction,
 } from "../actions/playlistActions";
+import { imagesAction } from "../actions/imageActions";
 import { PLAYLIST_EDIT_RESET } from "../constants/playlistConstants";
 import ProfileButton from "../components/ProfileButton";
 import Alert from "../components/Alert";
@@ -37,6 +38,9 @@ const PlaylistScreen = () => {
     error: editError,
     success: editSuccess,
   } = playlistEdit;
+
+  const imagesGet = useSelector((state) => state.imagesGet);
+  const { error: imagesError, images } = imagesGet;
 
   //useEffect
   useEffect(() => {
@@ -102,11 +106,26 @@ const PlaylistScreen = () => {
     document.getElementById("choose-artwork").classList.toggle("hidden");
   };
 
-  const imgClick = () => {};
+  const imgClick = () => {
+    //Display Image Modal
+    document.getElementById("image-modal").classList.toggle("hidden");
+    //Get All Images
+    dispatch(imagesAction());
+  };
 
   const editPlaylistSubmit = () => {
     document.getElementById("playlist-modal").classList.toggle("hidden");
     dispatch(playlistEditAction(id, name, description, image));
+  };
+
+  //Functions for Edit Image Modal
+  const imageModalClose = () => {
+    document.getElementById("image-modal").classList.toggle("hidden");
+  };
+
+  const newImgClick = (e) => {
+    setImage(e.target.name);
+    document.getElementById("image-modal").classList.toggle("hidden");
   };
 
   return (
@@ -164,6 +183,29 @@ const PlaylistScreen = () => {
                   Save
                 </button>
               </div>
+            </div>
+          </div>
+
+          {/* Edit Image Modal */}
+          <div className="edit-image-modal hidden" id="image-modal">
+            {imagesError && <Alert>{imagesError}</Alert>}
+            <div className="edit-image-modal-content">
+              <h3 className="white">Choose a new image</h3>
+              <span
+                className="white modal-closebtn white-h"
+                onClick={imageModalClose}
+              >
+                &times;
+              </span>
+              {images?.slice(0, 5).map((image) => (
+                <img
+                  className="inline pointer"
+                  src={`/api/files/image/${image?.filename}`}
+                  alt="Album Artwork"
+                  name={image?.filename}
+                  onClick={newImgClick}
+                ></img>
+              ))}
             </div>
           </div>
 

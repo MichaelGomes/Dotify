@@ -1,0 +1,3 @@
+export const IMAGES_REQUEST = "IMAGES_REQUEST";
+export const IMAGES_SUCCESS = "IMAGES_SUCCESS";
+export const IMAGES_FAIL = "IMAGES_FAIL";

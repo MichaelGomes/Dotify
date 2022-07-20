@@ -45,4 +45,21 @@ const getImageByName = asyncHandler(async (req, res) => {
   });
 });
 
-export { getImageByName };
+// @desc   Get All Images
+// @route  GET /api/files/image/
+// @access Public
+const getImages = asyncHandler(async (req, res) => {
+  gfs.files.find({ contentType: "image/jpeg" }).toArray((err, files) => {
+    // Check if files
+    if (!files || files.length === 0) {
+      return res.status(404).json({
+        error: "No files exist",
+      });
+    }
+
+    //Files exist
+    return res.json(files);
+  });
+});
+
+export { getImageByName, getImages };
