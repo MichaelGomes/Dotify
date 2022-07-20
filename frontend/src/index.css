@@ -545,7 +545,8 @@ body {
   padding-bottom: 140px;
 }
 
-.playlist-screen-img {
+.playlist-screen-img,
+.album-screen-img {
   width: 230px;
   height: 230px;
   padding-top: 80px;
@@ -634,7 +635,8 @@ h3 {
   display: inline-block;
 }
 
-.playlist-screen-img-sm {
+.playlist-screen-img-sm,
+.album-screen-img-sm {
   padding-top: 10px;
   width: 40px;
   height: 40px;
@@ -805,6 +807,69 @@ p {
 
 .edit-image-modal img:hover {
   opacity: 1;
+}
+
+/* ----------Album Screen----------*/
+.album-screen {
+  position: absolute;
+  z-index: 1;
+  margin-left: 240px;
+  width: 80%;
+  padding-bottom: 140px;
+}
+
+.album-song-container {
+  width: 100vw;
+  background-color: #1e1e1e;
+}
+
+.album-song-container .fa-circle-play {
+  color: var(--secondary);
+  font-size: 60px;
+  padding: 20px;
+}
+
+.album-song-container .fa-ellipsis {
+  padding-right: 20px;
+  margin-top: 10px;
+}
+
+.album-song-table-row:hover .fa-ellipsis {
+  padding-left: 20px;
+  color: white;
+  display: inline-block;
+}
+
+.album-screen .table {
+  padding-top: 30px;
+  width: 90%;
+  margin-left: 30px;
+  text-align: left;
+  padding-bottom: 50px;
+  min-height: 100px;
+}
+
+.album-screen .number {
+  padding-right: 10px;
+  width: 10px;
+}
+
+.album-screen .title {
+  width: 80%;
+}
+
+.album-song-popup p {
+  position: absolute;
+  right: 0;
+  margin-top: -50px;
+  margin-right: 50px;
+  background-color: #131313;
+  padding: 10px;
+}
+
+.album-song-popup p:hover {
+  background-color: #2f2f2f;
+  color: white;
 }
 
 /* ----------Library Screen----------*/

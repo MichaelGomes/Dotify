@@ -23,6 +23,7 @@ import {
   songRemoveReducer,
   songAddReducer,
   songsGetReducer,
+  songGetReducer,
 } from "./reducers/songReducers";
 
 const reducer = combineReducers({
@@ -43,6 +44,7 @@ const reducer = combineReducers({
   songRemove: songRemoveReducer,
   songAdd: songAddReducer,
   songsGet: songsGetReducer,
+  songGet: songGetReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")

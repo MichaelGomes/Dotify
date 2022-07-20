@@ -9,6 +9,7 @@ import ResetScreen from "./screens/ResetScreen";
 import PlaylistScreen from "./screens/PlaylistScreen";
 import LibraryScreen from "./screens/LibraryScreen";
 import SearchScreen from "./screens/SearchScreen";
+import AlbumScreen from "./screens/AlbumScreen";
 import MusicControls from "./components/MusicControls";
 import Sidebar from "./components/Sidebar";
 
@@ -26,6 +27,7 @@ function App() {
         <Route path="/search" element={<SearchScreen />} />
         <Route path="/playlist/:id" element={<PlaylistScreen />} />
         <Route path="/library" element={<LibraryScreen />} />
+        <Route path="/album/:id" element={<AlbumScreen />} />
         <Route path="*" element={<HomeScreen />} />
       </Routes>
       <Sidebar />

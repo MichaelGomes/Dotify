@@ -9,6 +9,9 @@ import {
   SONGS_FAIL,
   SONGS_REQUEST,
   SONGS_SUCCESS,
+  SONG_FAIL,
+  SONG_REQUEST,
+  SONG_SUCCESS,
 } from "../constants/songConstants";
 
 export const songRemoveAction = (id, songid) => async (dispatch, getState) => {
@@ -91,6 +94,24 @@ export const songsGetAction = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: SONGS_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const songGetAction = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: SONG_REQUEST });
+
+    const { data } = await axios.get(`/api/songs/${id}`);
+
+    dispatch({ type: SONG_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: SONG_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

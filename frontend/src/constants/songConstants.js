@@ -11,3 +11,7 @@ export const SONG_ADD_RESET = "SONG_ADD_RESET";
 export const SONGS_REQUEST = "SONGS_REQUEST";
 export const SONGS_SUCCESS = "SONGS_SUCCESS";
 export const SONGS_FAIL = "SONGS_FAIL";
+
+export const SONG_REQUEST = "SONG_REQUEST";
+export const SONG_SUCCESS = "SONG_SUCCESS";
+export const SONG_FAIL = "SONG_FAIL";

@@ -10,4 +10,18 @@ const getSongs = asyncHandler(async (req, res) => {
   res.json(songs);
 });
 
-export { getSongs };
+// @desc   Fetch single song
+// @route  GET /api/songs/:id
+// @access Public
+const getSongById = asyncHandler(async (req, res) => {
+  const song = await Song.findById(req.params.id);
+
+  if (song) {
+    res.json(song);
+  } else {
+    res.status(404);
+    throw new Error("Song not found");
+  }
+});
+
+export { getSongs, getSongById };
