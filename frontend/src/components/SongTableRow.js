@@ -1,8 +1,28 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
+import { songRemoveAction } from "../actions/songActions";
 
 const SongTableRow = ({ song, index }) => {
+  const { id } = useParams();
+  const dispatch = useDispatch();
+
   //Local State
   const [hover, setHover] = useState(false);
+  const [popupHidden, setPopupHidden] = useState(true);
+
+  //Functions
+  const settingsClick = () => {
+    if (popupHidden === true) {
+      setPopupHidden(false);
+    } else {
+      setPopupHidden(true);
+    }
+  };
+
+  const deleteClick = () => {
+    dispatch(songRemoveAction(id, song._id));
+  };
 
   return (
     <>
@@ -33,7 +53,18 @@ const SongTableRow = ({ song, index }) => {
         <p className="album inline">{song.album}</p>
         <p className="duration inline">
           {song.duration}
-          <i class="fa-solid fa-ellipsis hidden"></i>
+          <i class="fa-solid fa-ellipsis hidden" onClick={settingsClick}></i>
+        </p>
+      </div>
+
+      {/* POPUPS */}
+
+      <div className="song-popup" id="popup">
+        <p className="pointer" hidden={popupHidden} onClick={deleteClick}>
+          Remove Song
+        </p>
+        <p className="pointer" hidden={popupHidden}>
+          Add to Playlist
         </p>
       </div>
     </>

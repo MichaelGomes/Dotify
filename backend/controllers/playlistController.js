@@ -121,10 +121,35 @@ const editUserPlaylistById = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc   Remove a song from playlist
+// @route  DELETE /api/playlist/:id/song/:songid
+// @access Private
+const deleteSongFromPlaylist = asyncHandler(async (req, res) => {
+  const playlist = await Playlist.findById(req.params.id);
+
+  if (playlist) {
+    //User Verification
+    if (playlist.user.toString() === req.user._id.toString()) {
+      playlist.songs.id(req.params.songid).remove();
+
+      await playlist.save();
+
+      res.json("Song has been removed");
+    } else {
+      res.status(404);
+      throw new Error("Incorrect User, Not Authorized");
+    }
+  } else {
+    res.status(404);
+    throw new Error("Playlist does not exist");
+  }
+});
+
 export {
   getUserPlaylists,
   getUserPlaylistById,
   addUserPlaylistById,
   deleteUserPlaylistById,
   editUserPlaylistById,
+  deleteSongFromPlaylist,
 };

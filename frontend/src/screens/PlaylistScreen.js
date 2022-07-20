@@ -12,6 +12,7 @@ import ProfileButton from "../components/ProfileButton";
 import Alert from "../components/Alert";
 import Loader from "../components/Loader";
 import SongTableRow from "../components/SongTableRow";
+import { SONG_REMOVE_RESET } from "../constants/songConstants";
 
 const PlaylistScreen = () => {
   const { id } = useParams();
@@ -42,6 +43,9 @@ const PlaylistScreen = () => {
   const imagesGet = useSelector((state) => state.imagesGet);
   const { error: imagesError, images } = imagesGet;
 
+  const songRemove = useSelector((state) => state.songRemove);
+  const { success: songRemoveSuccess } = songRemove;
+
   //useEffect
   useEffect(() => {
     if (!userInfo) {
@@ -67,6 +71,7 @@ const PlaylistScreen = () => {
 
   const refresh = () => {
     dispatch({ type: PLAYLIST_EDIT_RESET });
+    dispatch({ type: SONG_REMOVE_RESET });
     dispatch(playlistAction(id));
   };
 
@@ -132,6 +137,7 @@ const PlaylistScreen = () => {
     <>
       {lengthSwitch === 0 && getPlaylistLength()}
       {editSuccess && refresh()}
+      {songRemoveSuccess && refresh()}
       <div className="main-content">
         <div className="playlist-screen">
           <ProfileButton />

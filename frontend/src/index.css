@@ -659,6 +659,24 @@ p {
   background-color: rgb(125, 125, 125);
 }
 
+.song-popup {
+  position: absolute;
+  right: 0;
+  margin-top: -50px;
+  margin-right: -10px;
+}
+
+.song-popup p {
+  background-color: #131313;
+  padding: 10px;
+  margin: 0;
+}
+
+.song-popup p:hover {
+  background-color: #2f2f2f;
+  color: white;
+}
+
 /* ----------Edit Playlist Modal---------- */
 .edit-playlist-modal {
   position: fixed;
