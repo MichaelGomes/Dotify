@@ -81,9 +81,50 @@ const deleteUserPlaylistById = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc   Edit a playlist
+// @route  PUT /api/playlist/:id
+// @access Private
+const editUserPlaylistById = asyncHandler(async (req, res) => {
+  //If no Name
+  if (!req.body.name || req.body.name.replace(/ /g, "").length === 0) {
+    res.status(400);
+    throw new Error("No Name Entered");
+  }
+
+  //If description longer than 50 characters
+  if (req.body.description) {
+    if (req.body.description.length > 50) {
+      res.status(400);
+      throw new Error("Description reached the character limit of 50");
+    }
+  }
+
+  const playlist = await Playlist.findById(req.params.id);
+
+  if (playlist) {
+    //User Verification
+    if (playlist.user.toString() === req.user._id.toString()) {
+      playlist.name = req.body.name || playlist.name;
+      playlist.description = req.body.description || playlist.description;
+      playlist.image = req.body.image || playlist.image;
+
+      await playlist.save();
+
+      res.json("Playlist has been updated");
+    } else {
+      res.status(404);
+      throw new Error("Incorrect User, Not Authorized.");
+    }
+  } else {
+    res.status(404);
+    throw new Error("Playlist Not Found");
+  }
+});
+
 export {
   getUserPlaylists,
   getUserPlaylistById,
   addUserPlaylistById,
   deleteUserPlaylistById,
+  editUserPlaylistById,
 };

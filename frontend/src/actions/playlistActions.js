@@ -12,6 +12,9 @@ import {
   PLAYLIST_REMOVE_FAIL,
   PLAYLIST_REMOVE_REQUEST,
   PLAYLIST_REMOVE_SUCCESS,
+  PLAYLIST_EDIT_FAIL,
+  PLAYLIST_EDIT_REQUEST,
+  PLAYLIST_EDIT_SUCCESS,
 } from "../constants/playlistConstants";
 
 export const playlistsAction = () => async (dispatch, getState) => {
@@ -137,3 +140,40 @@ export const playlistDeleteAction = (id) => async (dispatch, getState) => {
     });
   }
 };
+
+export const playlistEditAction =
+  (id, name, description, image) => async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: PLAYLIST_EDIT_REQUEST,
+      });
+
+      const {
+        userLogin: { userInfo },
+      } = getState();
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
+
+      await axios.put(
+        `/api/playlist/${id}`,
+        { name, description, image },
+        config
+      );
+
+      dispatch({
+        type: PLAYLIST_EDIT_SUCCESS,
+      });
+    } catch (error) {
+      dispatch({
+        type: PLAYLIST_EDIT_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };

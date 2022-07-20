@@ -6,6 +6,7 @@ import {
   getUserPlaylistById,
   addUserPlaylistById,
   deleteUserPlaylistById,
+  editUserPlaylistById,
 } from "../controllers/playlistController.js";
 
 //Route /api/playlist
@@ -17,6 +18,7 @@ router
 router
   .route("/:id")
   .get(protect, getUserPlaylistById)
-  .delete(protect, deleteUserPlaylistById);
+  .delete(protect, deleteUserPlaylistById)
+  .put(protect, editUserPlaylistById);
 
 export default router;

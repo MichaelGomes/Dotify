@@ -13,6 +13,10 @@ import {
   PLAYLIST_REMOVE_REQUEST,
   PLAYLIST_REMOVE_RESET,
   PLAYLIST_REMOVE_SUCCESS,
+  PLAYLIST_EDIT_FAIL,
+  PLAYLIST_EDIT_REQUEST,
+  PLAYLIST_EDIT_RESET,
+  PLAYLIST_EDIT_SUCCESS,
 } from "../constants/playlistConstants";
 
 export const playlistsGetReducer = (state = { playlists: [] }, action) => {
@@ -65,6 +69,21 @@ export const playlistDeleteReducer = (state = {}, action) => {
     case PLAYLIST_REMOVE_FAIL:
       return { loading: false, error: action.payload };
     case PLAYLIST_REMOVE_RESET:
+      return { success: false };
+    default:
+      return state;
+  }
+};
+
+export const playlistEditReducer = (state = {}, action) => {
+  switch (action.type) {
+    case PLAYLIST_EDIT_REQUEST:
+      return { loading: true };
+    case PLAYLIST_EDIT_SUCCESS:
+      return { loading: false, success: true };
+    case PLAYLIST_EDIT_FAIL:
+      return { loading: false, error: action.payload };
+    case PLAYLIST_EDIT_RESET:
       return { success: false };
     default:
       return state;
