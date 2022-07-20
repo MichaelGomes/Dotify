@@ -30,4 +30,34 @@ const getUserPlaylistById = asyncHandler(async (req, res) => {
   }
 });
 
-export { getUserPlaylists, getUserPlaylistById };
+// @desc   Add a playlist
+// @route  POST /api/playlist/
+// @access Private
+const addUserPlaylistById = asyncHandler(async (req, res) => {
+  const { name, description, image } = req.body;
+
+  //If no Name
+  if (!req.body.name || req.body.name.replace(/ /g, "").length === 0) {
+    res.status(400);
+    throw new Error("No Name Entered");
+  }
+
+  //If description longer than 50 characters
+  if (req.body.description.length > 50) {
+    res.status(400);
+    throw new Error("Description reached the character limit of 50");
+  }
+
+  const newPlaylist = await Playlist.create({
+    user: req.user._id,
+    name: name,
+    description: description,
+    image: image,
+  });
+
+  await newPlaylist.save();
+
+  res.json("Playlist Created");
+});
+
+export { getUserPlaylists, getUserPlaylistById, addUserPlaylistById };

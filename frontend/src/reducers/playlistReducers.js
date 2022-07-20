@@ -5,6 +5,10 @@ import {
   PLAYLIST_FAIL,
   PLAYLIST_REQUEST,
   PLAYLIST_SUCCESS,
+  PLAYLIST_ADD_FAIL,
+  PLAYLIST_ADD_REQUEST,
+  PLAYLIST_ADD_RESET,
+  PLAYLIST_ADD_SUCCESS,
 } from "../constants/playlistConstants";
 
 export const playlistsGetReducer = (state = { playlists: [] }, action) => {
@@ -28,6 +32,21 @@ export const playlistGetReducer = (state = { playlist: [] }, action) => {
       return { loading: false, playlist: action.payload };
     case PLAYLIST_FAIL:
       return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const playlistAddReducer = (state = {}, action) => {
+  switch (action.type) {
+    case PLAYLIST_ADD_REQUEST:
+      return { loading: true };
+    case PLAYLIST_ADD_SUCCESS:
+      return { loading: false, success: action.payload };
+    case PLAYLIST_ADD_FAIL:
+      return { loading: false, error: action.payload };
+    case PLAYLIST_ADD_RESET:
+      return { success: false };
     default:
       return state;
   }
