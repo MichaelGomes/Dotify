@@ -132,6 +132,69 @@ const MusicControls = () => {
     setSongPlay(false);
   };
 
+  const progressBarUpdate = () => {
+    // Convert duration into Number
+    let duration = currentSong?.duration;
+
+    //Convert String of minutes into seconds
+    duration = duration?.replace(/:/g, "");
+
+    if (duration[0] === "2") {
+      duration = duration.slice(1);
+      duration = Number(duration);
+      duration = duration + 120;
+    }
+
+    if (duration[0] === "1") {
+      duration = duration.slice(1);
+      duration = Number(duration);
+      duration = duration + 60;
+    }
+
+    // Get Audio
+    let audio = document.getElementById("audio");
+    let currentTime = audio.currentTime;
+
+    // Percent on progress bar
+    const progressPercent = (currentTime / duration) * 100;
+
+    // Set progress bar width
+    let bar = document.getElementById("progress-bar");
+    bar.style.width = progressPercent + "%";
+  };
+
+  const setProgress = (e) => {
+    // Convert duration into Number
+    let duration = currentSong?.duration;
+    duration = duration?.replace(/:/g, "");
+
+    //Convert String of minutes into seconds
+    if (duration[0] === "2") {
+      duration = duration.slice(1);
+      duration = Number(duration);
+      duration = duration + 120;
+    }
+
+    if (duration[0] === "1") {
+      duration = duration.slice(1);
+      duration = Number(duration);
+      duration = duration + 60;
+    }
+
+    //Progress Bar Container
+    let container = document.getElementById("progress-container");
+
+    //Width of Entire Bar
+    const width = container.clientWidth;
+
+    //Where user clicked on bar
+    const clickX = e.nativeEvent.offsetX;
+
+    //Set Audio to where clicked
+    let audio = document.getElementById("audio");
+    audio.currentTime = (clickX / width) * duration;
+  };
+
   return (
     <>
       <div className="bottom-bar">
@@ -208,13 +271,18 @@ const MusicControls = () => {
               <span className="purple repeat-badge">1</span>
             </>
           )}
-          <div id="progress-container" className="progress-container pointer">
+          <div
+            id="progress-container"
+            className="progress-container pointer"
+            onClick={setProgress}
+          >
             <div className="progress-bar" id="progress-bar"></div>
           </div>
           {currentSong?.length !== 0 ? (
             <audio
               id="audio"
               src={`/api/files/audio/${currentSong?.music}`}
+              onTimeUpdate={progressBarUpdate}
             ></audio>
           ) : (
             <audio id="audio" src=""></audio>
