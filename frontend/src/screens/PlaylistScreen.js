@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { playlistAction } from "../actions/playlistActions";
+import {
+  playlistAction,
+  playlistDeleteAction,
+} from "../actions/playlistActions";
 import ProfileButton from "../components/ProfileButton";
 import Alert from "../components/Alert";
 import Loader from "../components/Loader";
@@ -46,6 +49,23 @@ const PlaylistScreen = () => {
     }
   };
 
+  const playlistSettings = () => {
+    //Toggle Playlist Edit & Delete Buttons
+    document.getElementById("edit").classList.toggle("hidden");
+    document.getElementById("edit").classList.toggle("inline");
+    document.getElementById("delete").classList.toggle("hidden");
+    document.getElementById("delete").classList.toggle("inline");
+    document.getElementById("playlist-settings").classList.toggle("white");
+    document.getElementById("playlist-settings").classList.toggle("grey");
+  };
+
+  const playlistEditClick = () => {};
+
+  const playlistDeleteClick = () => {
+    dispatch(playlistDeleteAction(id));
+    navigate("/");
+  };
+
   return (
     <>
       {lengthSwitch === 0 && getPlaylistLength()}
@@ -72,7 +92,22 @@ const PlaylistScreen = () => {
               <i
                 id="playlist-settings"
                 class="fa-solid fa-ellipsis pointer options grey white-h"
+                onClick={playlistSettings}
               ></i>
+              <p
+                id="edit"
+                className="hidden options-select white pointer"
+                onClick={playlistEditClick}
+              >
+                Edit Playlist
+              </p>
+              <p
+                id="delete"
+                className="hidden options-select white pointer"
+                onClick={playlistDeleteClick}
+              >
+                Delete Playlist
+              </p>
             </div>
             <div className="grey table">
               <div className="row">

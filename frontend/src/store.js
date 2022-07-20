@@ -15,6 +15,7 @@ import {
   playlistsGetReducer,
   playlistGetReducer,
   playlistAddReducer,
+  playlistDeleteReducer,
 } from "./reducers/playlistReducers";
 
 const reducer = combineReducers({
@@ -29,6 +30,7 @@ const reducer = combineReducers({
   playlistsGet: playlistsGetReducer,
   playlistGet: playlistGetReducer,
   playlistAdd: playlistAddReducer,
+  playlistDelete: playlistDeleteReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")

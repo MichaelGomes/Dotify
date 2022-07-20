@@ -60,4 +60,30 @@ const addUserPlaylistById = asyncHandler(async (req, res) => {
   res.json("Playlist Created");
 });
 
-export { getUserPlaylists, getUserPlaylistById, addUserPlaylistById };
+// @desc   Remove a playlist
+// @route  DELETE /api/playlist/:id
+// @access Private
+const deleteUserPlaylistById = asyncHandler(async (req, res) => {
+  const playlist = await Playlist.findById(req.params.id);
+
+  if (playlist) {
+    //User Verification
+    if (playlist.user.toString() === req.user._id.toString()) {
+      await playlist.remove();
+      res.json("Playlist Removed");
+    } else {
+      res.status(404);
+      throw new Error("Incorrect User, Not Authorized");
+    }
+  } else {
+    res.status(404);
+    throw new Error("Playlist Not Found");
+  }
+});
+
+export {
+  getUserPlaylists,
+  getUserPlaylistById,
+  addUserPlaylistById,
+  deleteUserPlaylistById,
+};

@@ -582,6 +582,21 @@ h3 {
   padding-right: 30px;
 }
 
+.option-dropdown {
+  z-index: 3;
+}
+
+.options-select {
+  background-color: var(--secondary);
+  margin-right: 10px;
+  padding: 10px;
+  border-radius: 30px;
+}
+
+.options-select:hover {
+  background-color: #a205b4;
+}
+
 .playlist-screen .table {
   width: 90%;
   margin-left: 30px;

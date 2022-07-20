@@ -9,6 +9,9 @@ import {
   PLAYLIST_ADD_FAIL,
   PLAYLIST_ADD_REQUEST,
   PLAYLIST_ADD_SUCCESS,
+  PLAYLIST_REMOVE_FAIL,
+  PLAYLIST_REMOVE_REQUEST,
+  PLAYLIST_REMOVE_SUCCESS,
 } from "../constants/playlistConstants";
 
 export const playlistsAction = () => async (dispatch, getState) => {
@@ -102,3 +105,35 @@ export const playlistAddAction =
       });
     }
   };
+
+export const playlistDeleteAction = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: PLAYLIST_REMOVE_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    await axios.delete(`/api/playlist/${id}`, config);
+
+    dispatch({
+      type: PLAYLIST_REMOVE_SUCCESS,
+    });
+  } catch (error) {
+    dispatch({
+      type: PLAYLIST_REMOVE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
