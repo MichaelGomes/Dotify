@@ -677,6 +677,21 @@ p {
   color: white;
 }
 
+.playlist-popup {
+  position: fixed;
+  left: 30%;
+  bottom: 50%;
+  width: 500px;
+  background-color: #2f2f2f;
+  border: 5px solid black;
+  padding: 15px;
+}
+
+.playlist-popup p {
+  padding: 10px;
+  margin: 0;
+}
+
 /* ----------Edit Playlist Modal---------- */
 .edit-playlist-modal {
   position: fixed;

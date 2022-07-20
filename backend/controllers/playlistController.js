@@ -145,6 +145,42 @@ const deleteSongFromPlaylist = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc   Add a song to playlist
+// @route  POST /api/playlist/:id/song
+// @access Private
+const addSongToPlaylist = asyncHandler(async (req, res) => {
+  // const user = await User.findById(req.user._id);
+  const { name, album, artists, image, music, duration } = req.body;
+
+  const playlist = await Playlist.findById(req.params.id);
+
+  if (playlist) {
+    if (playlist.user.toString() === req.user._id.toString()) {
+      const newSong = await Playlist.findByIdAndUpdate(req.params.id, {
+        $push: {
+          songs: {
+            name: name,
+            album: album,
+            artists: artists,
+            image: image,
+            music: music,
+            duration: duration,
+          },
+        },
+      });
+
+      await newSong.save();
+      res.json("Song has been added to Playlist");
+    } else {
+      res.status(404);
+      throw new Error("Incorrect User, Not Authorized");
+    }
+  } else {
+    res.status(404);
+    throw new Error("Playlist does not exist");
+  }
+});
+
 export {
   getUserPlaylists,
   getUserPlaylistById,
@@ -152,4 +188,5 @@ export {
   deleteUserPlaylistById,
   editUserPlaylistById,
   deleteSongFromPlaylist,
+  addSongToPlaylist,
 };

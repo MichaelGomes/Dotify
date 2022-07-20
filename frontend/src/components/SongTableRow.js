@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { songRemoveAction } from "../actions/songActions";
+import { songRemoveAction, songAddAction } from "../actions/songActions";
 
 const SongTableRow = ({ song, index }) => {
   const { id } = useParams();
@@ -10,6 +10,11 @@ const SongTableRow = ({ song, index }) => {
   //Local State
   const [hover, setHover] = useState(false);
   const [popupHidden, setPopupHidden] = useState(true);
+  const [playlistPopupHidden, setPlaylistPopupHidden] = useState(true);
+
+  //Global State
+  const playlistsGet = useSelector((state) => state.playlistsGet);
+  const { playlists } = playlistsGet;
 
   //Functions
   const settingsClick = () => {
@@ -22,6 +27,28 @@ const SongTableRow = ({ song, index }) => {
 
   const deleteClick = () => {
     dispatch(songRemoveAction(id, song._id));
+  };
+
+  const addToPlaylistPopup = () => {
+    setPlaylistPopupHidden(false);
+    setPopupHidden(true);
+  };
+
+  const closeBtnClick = () => {
+    setPlaylistPopupHidden(true);
+  };
+
+  const addToPlaylist = (e) => {
+    let id = e.target.id;
+    let name = song.name;
+    let album = song.album;
+    let artists = song.artists;
+    let image = song.image;
+    let music = song.music;
+    let duration = song.duration;
+
+    dispatch(songAddAction(id, name, album, artists, image, music, duration));
+    setPlaylistPopupHidden(true);
   };
 
   return (
@@ -63,9 +90,34 @@ const SongTableRow = ({ song, index }) => {
         <p className="pointer" hidden={popupHidden} onClick={deleteClick}>
           Remove Song
         </p>
-        <p className="pointer" hidden={popupHidden}>
+        <p
+          className="pointer"
+          hidden={popupHidden}
+          onClick={addToPlaylistPopup}
+        >
           Add to Playlist
         </p>
+      </div>
+
+      <div
+        className="playlist-popup"
+        id="playlist-popup"
+        hidden={playlistPopupHidden}
+      >
+        <span class="closebtn inline" onClick={closeBtnClick}>
+          &times;
+        </span>
+        <h2 className="white">Add {song.name} To Playlist</h2>
+        {playlists?.map((playlist) => (
+          <p
+            key={playlist._id}
+            id={playlist._id}
+            className="pointer white-h"
+            onClick={addToPlaylist}
+          >
+            {playlist.name}
+          </p>
+        ))}
       </div>
     </>
   );

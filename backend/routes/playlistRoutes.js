@@ -8,6 +8,7 @@ import {
   deleteUserPlaylistById,
   editUserPlaylistById,
   deleteSongFromPlaylist,
+  addSongToPlaylist,
 } from "../controllers/playlistController.js";
 
 //Route /api/playlist
@@ -21,6 +22,7 @@ router
   .get(protect, getUserPlaylistById)
   .delete(protect, deleteUserPlaylistById)
   .put(protect, editUserPlaylistById);
+router.route("/:id/song").post(protect, addSongToPlaylist);
 router.route("/:id/song/:songid").delete(protect, deleteSongFromPlaylist);
 
 export default router;

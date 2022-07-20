@@ -8,11 +8,11 @@ import {
 } from "../actions/playlistActions";
 import { imagesAction } from "../actions/imageActions";
 import { PLAYLIST_EDIT_RESET } from "../constants/playlistConstants";
+import { SONG_REMOVE_RESET, SONG_ADD_RESET } from "../constants/songConstants";
 import ProfileButton from "../components/ProfileButton";
 import Alert from "../components/Alert";
 import Loader from "../components/Loader";
 import SongTableRow from "../components/SongTableRow";
-import { SONG_REMOVE_RESET } from "../constants/songConstants";
 
 const PlaylistScreen = () => {
   const { id } = useParams();
@@ -46,6 +46,9 @@ const PlaylistScreen = () => {
   const songRemove = useSelector((state) => state.songRemove);
   const { success: songRemoveSuccess } = songRemove;
 
+  const songAdd = useSelector((state) => state.songAdd);
+  const { success: addSuccess, error: addError } = songAdd;
+
   //useEffect
   useEffect(() => {
     if (!userInfo) {
@@ -72,6 +75,7 @@ const PlaylistScreen = () => {
   const refresh = () => {
     dispatch({ type: PLAYLIST_EDIT_RESET });
     dispatch({ type: SONG_REMOVE_RESET });
+    dispatch({ type: SONG_ADD_RESET });
     dispatch(playlistAction(id));
   };
 
@@ -138,13 +142,15 @@ const PlaylistScreen = () => {
       {lengthSwitch === 0 && getPlaylistLength()}
       {editSuccess && refresh()}
       {songRemoveSuccess && refresh()}
+      {addSuccess && refresh()}
       <div className="main-content">
         <div className="playlist-screen">
           <ProfileButton />
           {loading && <Loader />}
           {error && <Alert>{error}</Alert>}
           {editLoading && <Loader />}
-          {editError & <Alert>{editError}</Alert>}
+          {editError && <Alert>{editError}</Alert>}
+          {addError && <Alert>{addError}</Alert>}
 
           {/* Edit Playlist Modal */}
           <div className="edit-playlist-modal hidden" id="playlist-modal">

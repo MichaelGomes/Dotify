@@ -19,7 +19,7 @@ import {
   playlistEditReducer,
 } from "./reducers/playlistReducers";
 import { imagesGetReducer } from "./reducers/imageReducers";
-import { songRemoveReducer } from "./reducers/songReducers";
+import { songRemoveReducer, songAddReducer } from "./reducers/songReducers";
 
 const reducer = combineReducers({
   userLogin: userLoginReducer,
@@ -37,6 +37,7 @@ const reducer = combineReducers({
   playlistEdit: playlistEditReducer,
   imagesGet: imagesGetReducer,
   songRemove: songRemoveReducer,
+  songAdd: songAddReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")
