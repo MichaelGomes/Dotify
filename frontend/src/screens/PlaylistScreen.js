@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { playlistAction } from "../actions/playlistActions";
@@ -11,6 +11,10 @@ const PlaylistScreen = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  //Local State
+  const [lengthSwitch, setLengthSwitch] = useState(0);
+  const [playlistLength, setPlaylistLength] = useState(0);
 
   //Global State
   const userLogin = useSelector((state) => state.userLogin);
@@ -27,52 +31,67 @@ const PlaylistScreen = () => {
     if (userInfo?.verified === false) {
       navigate("/verify");
     }
+    setLengthSwitch(0);
     dispatch(playlistAction(id));
   }, [dispatch, id, navigate, userInfo]);
 
+  //Functions
+  const getPlaylistLength = () => {
+    if (playlist) {
+      let songs = playlist?.songs;
+      if (songs?.length !== undefined) {
+        setPlaylistLength(songs.length);
+        setLengthSwitch(1);
+      }
+    }
+  };
+
   return (
-    <div className="main-content">
-      <div className="playlist-screen">
-        <ProfileButton />
-        {loading && <Loader />}
-        {error && <Alert>{error}</Alert>}
+    <>
+      {lengthSwitch === 0 && getPlaylistLength()}
+      <div className="main-content">
+        <div className="playlist-screen">
+          <ProfileButton />
+          {loading && <Loader />}
+          {error && <Alert>{error}</Alert>}
 
-        <img
-          className="playlist-screen-img"
-          src={`/api/files/image/${playlist?.image}`}
-          alt="Album Artwork"
-        ></img>
-        <div className="playlist-header-text inline">
-          <h1 className="white ">{playlist?.name}</h1>
-          <h2 className="grey">{playlist?.description}</h2>
-          {/* <h3 className="grey">{playlistLength} songs</h3> */}
-        </div>
-
-        <div className="song-container">
-          <i class="fa-solid fa-circle-play pointer"></i>
-          <div className="option-dropdown inline">
-            <i
-              id="playlist-settings"
-              class="fa-solid fa-ellipsis pointer options grey white-h"
-            ></i>
+          <img
+            className="playlist-screen-img"
+            src={`/api/files/image/${playlist?.image}`}
+            alt="Album Artwork"
+          ></img>
+          <div className="playlist-header-text inline">
+            <h1 className="white ">{playlist?.name}</h1>
+            <h2 className="grey">{playlist?.description}</h2>
+            <h3 className="grey">{playlistLength} songs</h3>
           </div>
-          <div className="grey table">
-            <div className="row">
-              <p className="number inline">#</p>
-              <p className="title inline">TITLE</p>
 
-              <p className="album inline">ALBUM</p>
-              <p className="duration inline">DURATION</p>
+          <div className="song-container">
+            <i class="fa-solid fa-circle-play pointer"></i>
+            <div className="option-dropdown inline">
+              <i
+                id="playlist-settings"
+                class="fa-solid fa-ellipsis pointer options grey white-h"
+              ></i>
             </div>
-            <>
-              {playlist?.songs?.map((song, index) => (
-                <SongTableRow key={song._id} index={index} song={song} />
-              ))}
-            </>
+            <div className="grey table">
+              <div className="row">
+                <p className="number inline">#</p>
+                <p className="title inline">TITLE</p>
+
+                <p className="album inline">ALBUM</p>
+                <p className="duration inline">DURATION</p>
+              </div>
+              <>
+                {playlist?.songs?.map((song, index) => (
+                  <SongTableRow key={song._id} index={index} song={song} />
+                ))}
+              </>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
