@@ -5,11 +5,11 @@ import { playlistsAction } from "../actions/playlistActions";
 import ProfileButton from "../components/ProfileButton";
 import Alert from "../components/Alert";
 import Loader from "../components/Loader";
-import PlaylistCardSmall from "../components/PlaylistCardSmall";
+import PlaylistCard from "../components/PlaylistCard";
 
-const HomeScreen = () => {
-  const navigate = useNavigate();
+const LibraryScreen = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   //Global State
   const userLogin = useSelector((state) => state.userLogin);
@@ -26,22 +26,23 @@ const HomeScreen = () => {
     if (userInfo?.verified === false) {
       navigate("/verify");
     }
+
     dispatch(playlistsAction());
-  }, [navigate, userInfo, dispatch]);
+  }, [dispatch, navigate, userInfo]);
 
   return (
     <>
       <div className="main-content">
-        <div className="home-screen white">
-          <div className="heading">
-            <h1 className="inline">Welcome, {userInfo?.name}</h1>
-            <ProfileButton />
-          </div>
+        <div className="ml-content library-screen">
+          <ProfileButton />
+          <h2 className="white">Your Playlists</h2>
+
           {loading && <Loader />}
           {error && <Alert>{error}</Alert>}
-          <div className="playlist-container">
+
+          <div className="card-container">
             {playlists?.map((playlist) => (
-              <PlaylistCardSmall key={playlist._id} playlist={playlist} />
+              <PlaylistCard key={playlist._id} playlist={playlist} />
             ))}
           </div>
         </div>
@@ -50,4 +51,4 @@ const HomeScreen = () => {
   );
 };
 
-export default HomeScreen;
+export default LibraryScreen;

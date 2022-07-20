@@ -21,7 +21,33 @@ const Sidebar = () => {
     if (location.pathname === "/") {
       document.getElementById("home").classList.add("white");
       document.getElementById("home").classList.remove("grey");
+      document.getElementById("search").classList.remove("white");
+      document.getElementById("search").classList.add("grey");
+      document.getElementById("library").classList.remove("white");
+      document.getElementById("library").classList.add("grey");
+    } else if (location.pathname === "/search") {
+      document.getElementById("search").classList.add("white");
+      document.getElementById("search").classList.remove("grey");
+      document.getElementById("home").classList.remove("white");
+      document.getElementById("home").classList.add("grey");
+      document.getElementById("library").classList.remove("white");
+      document.getElementById("library").classList.add("grey");
+    } else if (location.pathname === "/library") {
+      document.getElementById("library").classList.add("white");
+      document.getElementById("library").classList.remove("grey");
+      document.getElementById("home").classList.remove("white");
+      document.getElementById("home").classList.add("grey");
+      document.getElementById("search").classList.remove("white");
+      document.getElementById("search").classList.add("grey");
+    } else {
+      document.getElementById("home").classList.remove("white");
+      document.getElementById("home").classList.add("grey");
+      document.getElementById("search").classList.remove("white");
+      document.getElementById("search").classList.add("grey");
+      document.getElementById("library").classList.remove("white");
+      document.getElementById("library").classList.add("grey");
     }
+
     dispatch(playlistsAction());
   }, [dispatch, location]);
 
