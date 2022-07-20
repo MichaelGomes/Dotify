@@ -1,8 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useLocation } from "react-router-dom";
 import { LinkContainer } from "react-router-bootstrap";
 import { Container } from "react-bootstrap";
+import { playlistsAction } from "../actions/playlistActions";
 
 const Sidebar = () => {
+  const dispatch = useDispatch();
+  const location = useLocation();
+
+  //Global State
+  const playlistsGet = useSelector((state) => state.playlistsGet);
+  const { playlists } = playlistsGet;
+
+  useEffect(() => {
+    if (location.pathname === "/") {
+      document.getElementById("home").classList.add("white");
+      document.getElementById("home").classList.remove("grey");
+    }
+    dispatch(playlistsAction());
+  }, [dispatch, location]);
+
   return (
     <div className="sidebar">
       <Container>
@@ -55,30 +73,13 @@ const Sidebar = () => {
 
         <hr />
         <ul className="grey playlists">
-          <li className="pointer white-h">
-            <p>Test List</p>
-          </li>
-          <li className="pointer white-h">
-            <p>Test List</p>
-          </li>
-          <li className="pointer white-h">
-            <p>Test List</p>
-          </li>
-          <li className="pointer white-h">
-            <p>Test List</p>
-          </li>
-          <li className="pointer white-h">
-            <p>Test List</p>
-          </li>
-          <li className="pointer white-h">
-            <p>Test List</p>
-          </li>
-          <li className="pointer white-h">
-            <p>Test List</p>
-          </li>
-          <li className="pointer white-h">
-            <p>Test List</p>
-          </li>
+          {playlists?.map((playlist) => (
+            <LinkContainer key={playlist._id} to={`/playlist/${playlist._id}`}>
+              <li className="pointer white-h">
+                <p>{playlist.name}</p>
+              </li>
+            </LinkContainer>
+          ))}
         </ul>
       </Container>
     </div>
