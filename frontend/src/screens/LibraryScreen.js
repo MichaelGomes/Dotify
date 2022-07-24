@@ -33,7 +33,7 @@ const LibraryScreen = () => {
   return (
     <>
       <div className="main-content">
-        <div className="ml-content library-screen">
+        <div className="ml-content library-screen ml-260">
           <ProfileButton />
           <h2 className="white">Your Playlists</h2>
 

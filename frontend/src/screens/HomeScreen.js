@@ -32,7 +32,7 @@ const HomeScreen = () => {
   return (
     <>
       <div className="main-content">
-        <div className="home-screen white">
+        <div className="home-screen ml-260 white">
           <div className="heading">
             <h1 className="inline">Welcome, {userInfo?.name}</h1>
             <ProfileButton />

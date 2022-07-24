@@ -70,7 +70,7 @@ const AlbumScreen = () => {
   return (
     <>
       <div className="main-content">
-        <div className="album-screen">
+        <div className="album-screen ml-240">
           <ProfileButton />
           {loading && <Loader />}
           {error && <Alert>{error}</Alert>}

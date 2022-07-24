@@ -40,7 +40,7 @@ const SearchScreen = () => {
   return (
     <>
       <div className="main-content">
-        <div className="ml-content search-screen">
+        <div className="ml-content search-screen ml-260">
           <ProfileButton />
           <form className="search-bar" onSubmit={preventDefault}>
             <input

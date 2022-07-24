@@ -337,9 +337,41 @@ const MusicControls = () => {
     audio.currentTime = (clickX / width) * duration;
   };
 
+  const infoClick = () => {
+    document.getElementById("song-info-modal").classList.toggle("hidden");
+  };
+
   return (
     <>
+      {/* Mobile Song Info Modal */}
+      <div className="song-info-modal hidden" id="song-info-modal">
+        <div className="song-info-modal-content">
+          {currentSong && (
+            <>
+              <img
+                className="btm-modal-img"
+                src={`/api/files/image/${currentSong?.image}`}
+                alt="Album Artwork"
+              ></img>
+              <div>
+                <h2 className="white">{currentSong?.name}</h2>
+                <h3 className="grey">{currentSong?.artists}</h3>
+              </div>
+            </>
+          )}
+          <span className="white modal-closebtn white-h" onClick={infoClick}>
+            &times;
+          </span>
+        </div>
+      </div>
+
       <div className="bottom-bar">
+        {currentSong && (
+          <i
+            class="fa-regular fa-file-lines btm-icon grey hidden pointer"
+            onClick={infoClick}
+          ></i>
+        )}
         <div className="current-song">
           {currentSong && (
             <>

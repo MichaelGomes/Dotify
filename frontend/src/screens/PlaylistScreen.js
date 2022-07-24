@@ -152,7 +152,7 @@ const PlaylistScreen = () => {
       {songRemoveSuccess && refresh()}
       {addSuccess && refresh()}
       <div className="main-content">
-        <div className="playlist-screen">
+        <div className="playlist-screen ml-240">
           <ProfileButton />
           {loading && <Loader />}
           {error && <Alert>{error}</Alert>}
