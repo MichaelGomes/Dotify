@@ -1,3 +1,4 @@
+import path from "path";
 import express from "express";
 import dotenv from "dotenv";
 import connectDB from "./config/db.js";
@@ -20,6 +21,18 @@ app.use("/api/users", userRoutes);
 app.use("/api/playlist", playlistRoutes);
 app.use("/api/files", fileRoutes);
 app.use("/api/songs", songRoutes);
+
+const __dirname = path.resolve();
+
+//Makes build folder static
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "/frontend/build")));
+  //Runs if any route that is not a route listed above
+  //Will point to index.html
+  app.get("*", (req, res) =>
+    res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"))
+  );
+}
 
 //Error Handling
 app.use(notFound);
