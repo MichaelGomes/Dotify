@@ -1,6 +1,6 @@
 {
   "name": "dotify",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "type": "module",
   "description": "A Music Player Inspired By Spotify's UI",
   "main": "server.js",
